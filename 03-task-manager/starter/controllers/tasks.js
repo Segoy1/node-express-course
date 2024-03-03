@@ -1,18 +1,27 @@
+const Task = require('../models/task')
 
-const getAllTasks = (req, res)=>{
+function getAllTasks(req, res) {
     res.send('all items from the file');
 }
 
-const createTask = (req, res)=>{
-    res.json(req.body);
+async function createTask(req, res) {
+    try{
+    const task = await Task.create(req.body)
+    res.status(201).json({task});
+    }catch(err){
+        res.status(500).json({msg:err})
+    }
 }
-const getTask = (req, res)=>{
-    res.json({id:req.params.id});
+
+function getTask(req, res) {
+    res.json({id: req.params.id});
 }
-const updateTask = (req, res)=>{
+
+function updateTask(req, res) {
     res.send('update Task');
 }
-const deleteTask = (req, res)=>{
+
+function deleteTask(req, res) {
     res.send('delete Task');
 }
 
